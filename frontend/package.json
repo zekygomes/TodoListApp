@@ -1,0 +1,24 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "description": "Todo List in Django and Vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zekygomes/TodoListApp.git"
+  },
+  "keywords": [
+    "todo",
+    "django",
+    "vue"
+  ],
+  "author": "Ezequiel Gomes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zekygomes/TodoListApp/issues"
+  },
+  "homepage": "https://github.com/zekygomes/TodoListApp#readme"
+}
