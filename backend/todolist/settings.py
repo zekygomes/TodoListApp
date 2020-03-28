@@ -25,7 +25,7 @@ SECRET_KEY = '=r)zua9*b9n4rafpg9$m!-+diq+894#_+t-97=!bv=wsn7#sq5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 
 # Application definition
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'rest_framework',
+    'corsheaders',
+    'todolist'
 ]
 
 MIDDLEWARE = [
@@ -47,7 +51,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'todolist.urls'
 
@@ -75,8 +84,12 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todolist',
+        'USER': 'postgres',
+        'PASSWORD': 'secret',
+        'HOST': 'postgres',
+        'PORT': 5432,
     }
 }
 

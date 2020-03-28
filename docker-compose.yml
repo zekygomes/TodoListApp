@@ -1,0 +1,45 @@
+version: '3'
+
+volumes: 
+    postgres-data: {}
+
+services:
+  postgres:
+    image: postgres
+    environment:
+        POSTGRES_HOST_AUTH_METHOD: trust
+        POSTGRES_DB: todolist
+        POSTGRES_PASSWORD: secret
+    ports: 
+        - "5432"
+    volumes: 
+        - postgres-data:/var/lib/postgresql/data
+
+  django:
+    build:
+        context: .
+        dockerfile: docker/BackendDockerFile
+    working_dir: /todo
+    command: python manage.py runserver 0.0.0.0:8990
+    depends_on:
+        - postgres
+    links:
+        - postgres:postgres
+    volumes:
+        - ./backend:/todo
+    ports:
+        - "8990:8990"
+    restart: always
+
+  vue:
+    build:
+        context: .
+        dockerfile: docker/FrontendDockerFile
+    command: npm run serve
+    volumes:
+        - ./frontend:/app
+    depends_on:
+        - django
+    ports:
+        - "8080:8080"
+    restart: always

@@ -1,0 +1,13 @@
+FROM node:11.11.0-stretch
+RUN mkdir /app
+WORKDIR /app
+COPY ./frontend /app
+EXPOSE 8080
+
+# RUN npm i
+# RUN npm install -g npm @vue/cli
+# RUN npm install -g @vue/cli
+# RUN npm install vue axios bootstrap bootstrap-vue vee-validate
+
+# CMD ["vue", "add", "@vue/unit-jest"]
+# CMD ["npm", "run", "serve"]
