@@ -13,6 +13,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.9.0",
     "core-js": "^3.6.4",
+    "element-ui": "^2.13.0",
     "moment": "^2.24.0",
     "uuid": "^7.0.2",
     "vee-validate": "^3.2.5",

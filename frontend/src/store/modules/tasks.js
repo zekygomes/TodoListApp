@@ -1,39 +1,40 @@
 import axios from 'axios';
 import Task from '../../models/Task';
-import TaskList from '../../models/TaskList';
 
 const state = {
-  tasks: TaskList,
-  task: new Task()
+  tasks: [Task]
 };
 
 const getters = {
-  allTasks: state => state.tasks
+  allTasks: state => state.tasks,
+  countTasksIsDone: state => state.tasks.filter(task => task.done === true).length,
+  countTasks: state => state.tasks.length
+
 };
 
 const actions = {
-  async getTasks({ commit }) {
+  async setTasks({ commit }) {
     const response = await axios.get(
-      'http://127.0.0.1:8990/api/tasks'
+      '/api/tasks/'
     );
 
     commit('setTasks', response.data);
   },
   async addTasks({ commit }, Task) {
     const response = await axios.post(
-      'http://127.0.0.1:8990/api/tasks',Task
+      process.env.URL_API +'/api/tasks/',Task
     );
 
     commit('newTask', response.data);
   },
   async deleteTask({ commit }, id) {
-    await axios.delete(`http://127.0.0.1:8990/api/tasks/${id}`);
-
+    await axios.delete(`/api/task/${id}/`);
+    
     commit('removeTask', id);
   },
   async updateTask({ commit }, Task) {
     const response = await axios.put(
-      `http://127.0.0.1:8990/api/tasks/${Task.id}`, Task
+      `/api/task/${Task.id}/`, Task
     );
 
     commit('updateTask', response.data);
@@ -43,10 +44,14 @@ const actions = {
 const mutations = {
   setTasks: (state, tasks) => (state.tasks = tasks),
   newTask: (state, task) => state.tasks.add(task),
-  removeTask: (state, id) => state.tasks.remove(this.tasks.find({id: id})),
-  updateTask: (state, task) => {
-    const oldTask = this.tasks.find({id: task.id});
-    this.tasks.replace(oldTask, task);
+  removeTask: (state, id) => {
+    state.tasks = state.tasks.filter(task => task.id !== id);
+  },
+  updateTask: (state, updatedTask) => {
+    const index = state.tasks.findIndex(task => task.id === updatedTask.id);
+    if (index !== -1) {
+      state.tasks.splice(index, 1, updatedTask);
+    }
   }
 };
 
