@@ -1,5 +1,9 @@
 .DS_Store
 node_modules
 /dist
+__pycache__/
 
+.Python
+build/
+dist/
 .vscode

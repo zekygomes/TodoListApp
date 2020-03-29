@@ -5,6 +5,7 @@ volumes:
 
 services:
   postgres:
+    container_name: postgres
     image: postgres
     environment:
         POSTGRES_HOST_AUTH_METHOD: trust
@@ -16,6 +17,7 @@ services:
         - postgres-data:/var/lib/postgresql/data
 
   django:
+    container_name: django
     build:
         context: .
         dockerfile: docker/BackendDockerFile
@@ -32,6 +34,7 @@ services:
     restart: always
 
   vue:
+    container_name: vue
     build:
         context: .
         dockerfile: docker/FrontendDockerFile
